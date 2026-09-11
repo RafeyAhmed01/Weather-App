@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            background: linear-gradient(135deg, #e0f7fa 0%, #81d4fa 100%);
+            padding: 20px;
+        }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 8px 8px 8px 25px;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(5px);
+            transition: transform 0.2s ease;
+        }
+
+        .search-container:focus-within {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        input[type="text"] {
+            border: none;
+            outline: none;
+            background: transparent;
+            font-size: 1.1rem;
+            color: #333;
+            width: 250px;
+        }
+
+        input::placeholder { color: #888; }
+
+        .search-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            background-color: #0288d1;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(2, 136, 209, 0.3);
+        }
+
+        .search-btn:hover {
+            background-color: #0277bd;
+            transform: scale(1.05);
+        }
+
+        .search-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        #results {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 25px 35px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            min-width: 300px;
+            display: none;
+        }
+
+        #results h2 {
+            color: #0288d1;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 12px;
+        }
+
+        #results h2:first-child { margin-top: 0; }
+
+        #results p {
+            color: #333;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        #error {
+            color: #d32f2f;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px 25px;
+            border-radius: 15px;
+            display: none;
+            font-weight: 500;
+        }
+
+        @media (max-width: 480px) {
+            .search-container {
+                width: 90%;
+                padding: 6px 6px 6px 20px;
+            }
+            input[type="text"] { width: 100%; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="search-container">
+        <input type="text" id="cityInput" placeholder="Enter city name..." autocomplete="off">
+        <button class="search-btn" onclick="searchWeather()" aria-label="Search">
+            <svg viewBox="0 0 24 24">
+                <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
+            </svg>
+        </button>
+    </div>
+
+    <div id="error"></div>
+
+    <div id="results">
+        <h2>City</h2>
+        <p id="pCityName"></p>
+        <h2>Country</h2>
+        <p id="pCountryName"></p>
+        <h2>Weather</h2>
+        <p id="pWeather"></p>
+        <h2>Temperature</h2>
+        <p id="pTemperature"></p>
+        <h2>Feels Like</h2>
+        <p id="pFeelsLike"></p>
+        <h2>Humidity</h2>
+        <p id="pHumidity"></p>
+    </div>
+
+    <script>
+        const resultsDiv = document.getElementById("results");
+        const errorDiv = document.getElementById("error");
+
+        async function searchWeather() {
+            const city = document.getElementById('cityInput').value.trim();
+
+            if (!city) {
+                document.getElementById('cityInput').focus();
+                return;
+            }
+
+            resultsDiv.style.display = "none";
+            errorDiv.style.display = "none";
+
+            try {
+                const response = await fetch(`http://127.0.0.1:8000/api/v1/${encodeURIComponent(city)}`);
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.detail || "Something went wrong");
+                }
+
+                document.getElementById("pCityName").textContent = data.name;
+                document.getElementById("pCountryName").textContent = data.country;
+                document.getElementById("pWeather").textContent = data.weather;
+                document.getElementById("pTemperature").textContent = `${data.temperature}°C`;
+                document.getElementById("pFeelsLike").textContent = `${data.feels_like}°C`;
+                document.getElementById("pHumidity").textContent = `${data.humidity}%`;
+
+                resultsDiv.style.display = "block";
+
+            } catch (err) {
+                console.error("Fetch error:", err);
+                errorDiv.textContent = `❌ ${err.message}`;
+                errorDiv.style.display = "block";
+            }
+        }
+
+        document.getElementById('cityInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                searchWeather();
+            }
+        });
+    </script>
+
+</body>
+
+</html>
