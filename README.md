@@ -106,3 +106,6 @@ The application currently returns the first exact-name match when available, oth
 ## License 
 
 MIT
+
+## PREVIEW IMAGE
+![Preview](image.png)
