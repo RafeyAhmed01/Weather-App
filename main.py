@@ -5,7 +5,6 @@ from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-from fastapi.requests import Request
 from fastapi.templating import Jinja2Templates
 
 load_dotenv()
@@ -17,13 +16,7 @@ app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["GET"])
 def get_icon():
     return 
 
-app.mount("/static", StaticFiles(directory="static"), name="static")
-
-templates = Jinja2Templates(directory="templates")
-
-@app.get("/")
-async def home(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
+app.mount("/static", StaticFiles(directory="."), name="static")
 
 @app.get("/api/v1/{city_name}")
 def fetch_weather(city_name: str) -> dict:

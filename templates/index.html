@@ -166,7 +166,7 @@
             errorDiv.style.display = "none";
 
             try {
-                const response = await fetch(`/api/v1/${encodeURI(city)}`);
+                const response = await fetch(`http://127.0.0.1:8000/api/v1/${encodeURIComponent(city)}`);
                 const data = await response.json();
 
                 if (!response.ok) {
