@@ -16,6 +16,11 @@ app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["GET"])
 def get_icon():
     return 
 
+@app.get("/")
+def root():
+    return {
+        "message": "welcome"
+    }
 
 @app.get("/api/v1/{city_name}")
 def fetch_weather(city_name: str) -> dict:
