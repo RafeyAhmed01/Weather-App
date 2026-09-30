@@ -111,4 +111,4 @@ MIT
 ![Preview](image.png)
 
 ## LIVE URL
-https://weather-app-none-a078.vercel.app/
+[https://weather-app-none-a078.vercel.app/](https://weather-app-self-beta-80.vercel.app/)
