@@ -45,7 +45,7 @@ Tooling:
 
 ```bash
 git clone https://github.com/RafeyAhmed01/Weather-App
-cd Weather-App
+cd Python_Weather_App
 ```
 - Install Dependencies
 
@@ -106,7 +106,3 @@ The application currently returns the first exact-name match when available, oth
 ## License 
 
 MIT
-
-## Screenshot
-
-![Preview](image.png)

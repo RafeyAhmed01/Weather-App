@@ -16,7 +16,6 @@ app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["GET"])
 def get_icon():
     return 
 
-app.mount("/static", StaticFiles(directory="."), name="static")
 
 @app.get("/api/v1/{city_name}")
 def fetch_weather(city_name: str) -> dict:
