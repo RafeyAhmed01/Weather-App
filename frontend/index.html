@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <div class="search-container">
+        <input type="text" id="cityInput" placeholder="Enter city name..." autocomplete="off">
+        <button class="search-btn" onclick="searchWeather()" aria-label="Search">
+            <svg viewBox="0 0 24 24">
+                <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
+            </svg>
+        </button>
+    </div>
+
+    <div id="error"></div>
+
+    <div id="results">
+        <h2>City</h2>
+        <p id="pCityName"></p>
+        <h2>Country</h2>
+        <p id="pCountryName"></p>
+        <h2>Weather</h2>
+        <p id="pWeather"></p>
+        <h2>Temperature</h2>
+        <p id="pTemperature"></p>
+        <h2>Feels Like</h2>
+        <p id="pFeelsLike"></p>
+        <h2>Humidity</h2>
+        <p id="pHumidity"></p>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

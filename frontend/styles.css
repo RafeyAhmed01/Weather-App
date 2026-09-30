@@ -1,0 +1,120 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    background: linear-gradient(135deg, #e0f7fa 0%, #81d4fa 100%);
+    padding: 20px;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 8px 8px 8px 25px;
+    border-radius: 50px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    transition: transform 0.2s ease;
+}
+
+.search-container:focus-within {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+input[type="text"] {
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 1.1rem;
+    color: #333;
+    width: 250px;
+}
+
+input::placeholder {
+    color: #888;
+}
+
+.search-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: none;
+    background-color: #0288d1;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(2, 136, 209, 0.3);
+}
+
+.search-btn:hover {
+    background-color: #0277bd;
+    transform: scale(1.05);
+}
+
+.search-btn svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+}
+
+#results {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 25px 35px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    min-width: 300px;
+    display: none;
+}
+
+#results h2 {
+    color: #0288d1;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 12px;
+}
+
+#results h2:first-child {
+    margin-top: 0;
+}
+
+#results p {
+    color: #333;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+#error {
+    color: #d32f2f;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 15px 25px;
+    border-radius: 15px;
+    display: none;
+    font-weight: 500;
+}
+
+@media (max-width: 480px) {
+    .search-container {
+        width: 90%;
+        padding: 6px 6px 6px 20px;
+    }
+
+    input[type="text"] {
+        width: 100%;
+    }
+}
